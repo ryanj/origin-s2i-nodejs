@@ -6,7 +6,9 @@
 # IMAGE_NAME specifies a name of the candidate image used for testing.
 # The image has to be available before this script is executed.
 #
-IMAGE_NAME=${IMAGE_NAME-openshift/nodejs-010-centos7-candidate}
+IMAGE_NAME=${IMAGE_NAME-ryanj/centos7-s2i-nodejs-candidate}
+NODE_VERSION=${NODE_VERSION}
+IMAGE_TAG=${IMAGE_NAME}":"${NODE_VERSION};
 
 test_dir="$(readlink -zf $(dirname "${BASH_SOURCE[0]}"))"
 image_dir=$(readlink -zf ${test_dir}/..)
@@ -32,12 +34,12 @@ container_ip() {
 }
 
 run_s2i_build() {
-  s2i build ${s2i_args} file://${test_dir}/test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
+  s2i build ${s2i_args} file://${test_dir}/test-app ${IMAGE_TAG} ${IMAGE_NAME}-testapp
 }
 
 prepare() {
-  if ! image_exists ${IMAGE_NAME}; then
-    echo "ERROR: The image ${IMAGE_NAME} must exist before this script is executed."
+  if ! image_exists ${IMAGE_TAG}; then
+    echo "ERROR: The image ${IMAGE_TAG} must exist before this script is executed."
     exit 1
   fi
   # TODO: STI build require the application is a valid 'GIT' repository, we
@@ -68,7 +70,7 @@ cleanup() {
 check_result() {
   local result="$1"
   if [[ "$result" != "0" ]]; then
-    echo "STI image '${IMAGE_NAME}' test FAILED (exit code: ${result})"
+    echo "STI image '${IMAGE_TAG}' test FAILED (exit code: ${result})"
     cleanup
     exit $result
   fi
@@ -89,12 +91,12 @@ wait_for_cid() {
 
 test_s2i_usage() {
   echo "Testing 's2i usage'..."
-  s2i usage ${s2i_args} ${IMAGE_NAME} &>/dev/null
+  s2i usage ${s2i_args} ${IMAGE_TAG} &>/dev/null
 }
 
 test_docker_run_usage() {
   echo "Testing 'docker run' usage..."
-  docker run ${IMAGE_NAME} &>/dev/null
+  docker run ${IMAGE_TAG} &>/dev/null
 }
 
 test_connection() {
@@ -123,8 +125,8 @@ test_scl_usage() {
   local run_cmd="$1"
   local expected="$2"
 
-  echo "Testing the image SCL enable ..."
-  out=$(docker run --rm ${IMAGE_NAME} /bin/bash -c "${run_cmd}")
+  echo "Checking nodejs runtime version ..."
+  out=$(docker run --rm ${IMAGE_TAG} /bin/bash -c "${run_cmd}")
   if ! echo "${out}" | grep -q "${expected}"; then
     echo "ERROR[/bin/bash -c "${run_cmd}"] Expected '${expected}', got '${out}'"
     return 1
@@ -144,11 +146,11 @@ test_scl_usage() {
 validate_default_value() {
   local label=$1
 
-  IFS=':' read -a label_vals <<< $(docker inspect -f "{{index .Config.Labels \"$label\"}}" ${IMAGE_NAME}) 
+  IFS=':' read -a label_vals <<< $(docker inspect -f "{{index .Config.Labels \"$label\"}}" ${IMAGE_TAG}) 
   label_var=${label_vals[0]}
   default_label_val=${label_vals[1]}
 
-  actual_label_val=$(docker run --rm $IMAGE_NAME /bin/bash -c "echo $"$label_var)
+  actual_label_val=$(docker run --rm $IMAGE_TAG /bin/bash -c "echo $"$label_var)
 
   if [ "$actual_label_val" != "$default_label_val" ]; then
     echo "ERROR default value for $label with environment variable $label_var; Expected $default_label_val, got $actual_label_val"
@@ -161,10 +163,10 @@ get_node_env_from_container() {
   local dev_mode="$1"
   local node_env="$2"
 
-  IFS=':' read -a label_val <<< $(docker inspect -f '{{index .Config.Labels "com.redhat.dev-mode"}}' $IMAGE_NAME)
+  IFS=':' read -a label_val <<< $(docker inspect -f '{{index .Config.Labels "com.redhat.dev-mode"}}' $IMAGE_TAG)
   dev_mode_label_var="${label_val[0]}"
 
-  echo $(docker run --rm --env $dev_mode_label_var=$dev_mode --env NODE_ENV=$node_env $IMAGE_NAME /bin/bash -c 'echo "$NODE_ENV"')
+  echo $(docker run --rm --env $dev_mode_label_var=$dev_mode --env NODE_ENV=$node_env $IMAGE_TAG /bin/bash -c 'echo "$NODE_ENV"')
 }
 
 # Ensures that a docker container run with '--env NODE_ENV=$current_val' produces a NODE_ENV value of $expected when
@@ -233,7 +235,7 @@ run_test_application &
 # Wait for the container to write it's CID file
 wait_for_cid
 
-test_scl_usage "node --version" "v0.10"
+test_scl_usage "node --version" "v${NODE_VERSION}"
 check_result $?
 
 test_connection
