@@ -4,7 +4,7 @@ Origin S2I NodeJS
 This repository contains the source for building various versions of
 the Node.JS application as a reproducible Docker image using
 [source-to-image](https://github.com/openshift/source-to-image).
-Users can choose between RHEL and CentOS based builder images.
+Users can choose between Fedora and CentOS based builder images.
 The resulting image can be run using [Docker](http://docker.io).
 
 For more information about using these images with OpenShift, please see the
@@ -18,6 +18,17 @@ Versions
 * `0.12.13` `0.12`
 * `4.4.2` `4.4` `4` `lts`
 * `5.10.1` `5.10` `5` `stable` `latest`
+
+Usage
+---------------------------------
+
+[Source2Image](https://github.com/openshift/source-to-image/releases) is available as a standalone project, allowing you to [run builds outside of OpenShift](https://github.com/ryanj/origin-s2i-nodejs/blob/master/nodejs.org/README.md#usage).
+
+OpenShift allows you to quickly start a build using the web console, or the CLI.
+
+Example usage with the [`oc` command-line tool](https://github.com/openshift/origin/releases):
+
+    oc new-app ryanj/centos7-s2i-nodejs:stable~http://github.com/ryanj/http-base
 
 Installation
 ---------------
@@ -48,13 +59,6 @@ To build a Node.JS image:
     $ cd origin-s2i-nodejs
     $ make build VERSION=5.10.1
     ```
-
-Usage
----------------------------------
-
-For information about usage of Dockerfile for NodeJS,
-see [usage documentation](nodejs.org/README.md).
-
 
 Test
 ---------------------
