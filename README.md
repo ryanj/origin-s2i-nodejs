@@ -21,6 +21,17 @@ Versions
 
 Installation
 ---------------
+
+To install these nodejs S2I builders into your current project, making them available in the web-based OpenShift "create" workflow, run:
+
+    oc create -f https://raw.githubusercontent.com/ryanj/origin-s2i-nodejs/master/image-streams.json
+
+Administrators can make these builders available globally (visible in all projects) by adding them to the `openshift` namespace:
+
+    oc create -n openshift -f https://raw.githubusercontent.com/ryanj/origin-s2i-nodejs/master/image-streams.json
+
+Building your own Builder images
+--------------------------------
 To build a Node.JS image:
 *  **CentOS based image**
 
