@@ -13,7 +13,7 @@ script_env = \
 	VERSIONS="$(VERSIONS)"                          \
 	OS=$(OS)                                        \
 	BASE_IMAGE_NAME=$(BASE_IMAGE_NAME)              \
-	NODE_VERSION=$(NODE_VERSION)
+	VERSION=$(VERSION)
 
 .PHONY: build
 build:

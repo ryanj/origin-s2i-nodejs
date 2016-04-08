@@ -4,9 +4,11 @@ NodeJS Docker image
 This repository contains the source for building various versions of
 the Node.JS application as a reproducible Docker image using
 [source-to-image](https://github.com/openshift/source-to-image).
-Users can choose between RHEL and CentOS based builder images.
+
+CentOS based builder images with Nodejs binaries from nodejs.org.
 The resulting image can be run using [Docker](http://docker.io).
 
+If you are interested in using SCL-based nodejs binaries, try [sti-nodejs](https://github.com/openshift/sti-nodejs)
 
 Usage
 ---------------------
@@ -14,15 +16,9 @@ To build a simple [nodejs-sample-app](https://github.com/openshift/sti-nodejs/tr
 using standalone [STI](https://github.com/openshift/source-to-image) and then run the
 resulting image with [Docker](http://docker.io) execute:
 
-*  **For RHEL based image**
-    ```
-    $ s2i build https://github.com/openshift/sti-nodejs.git --context-dir=0.10/test/test-app/ openshift/nodejs-010-rhel7 nodejs-sample-app
-    $ docker run -p 8080:8080 nodejs-sample-app
-    ```
-
 *  **For CentOS based image**
     ```
-    $ s2i build https://github.com/openshift/sti-nodejs.git --context-dir=0.10/test/test-app/ openshift/nodejs-010-centos7 nodejs-sample-app
+    $ s2i build https://github.com/openshift/sti-nodejs.git --context-dir=0.10/test/test-app/ ryanj/centos7-s2i-nodejs nodejs-sample-app
     $ docker run -p 8080:8080 nodejs-sample-app
     ```
 
@@ -34,16 +30,15 @@ $ curl 127.0.0.1:8080
 
 Repository organization
 ------------------------
-* **`<nodejs-version>`**
+* **`nodejs.org`**
 
     * **Dockerfile**
 
-        CentOS based Dockerfile.
+        CentOS based Dockerfile with 64bit nodejs binaries from nodejs.org.
 
-    * **Dockerfile.rhel7**
+    * **Dockerfile.sourcebuild**
 
-        RHEL based Dockerfile. In order to perform build or test actions on this
-        Dockerfile you need to run the action on a properly subscribed RHEL machine.
+        CentOS based Dockerfile, nodejs binaries built from source (downloaded from nodejs.org).
 
     * **`s2i/bin/`**
 

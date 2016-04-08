@@ -4,8 +4,11 @@ Origin S2I NodeJS
 This repository contains the source for building various versions of
 the Node.JS application as a reproducible Docker image using
 [source-to-image](https://github.com/openshift/source-to-image).
-Users can choose between Fedora and CentOS based builder images.
+
+CentOS based builder images are available with nodejs sources from nodejs.org.
 The resulting image can be run using [Docker](http://docker.io).
+
+If you are interested in using SCL-based nodejs binaries, try [sti-nodejs](https://github.com/openshift/sti-nodejs).
 
 For more information about using these images with OpenShift, please see the
 official [OpenShift Documentation](https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html).
@@ -26,9 +29,13 @@ Usage
 
 OpenShift allows you to quickly start a build using the web console, or the CLI.
 
-Example usage with the [`oc` command-line tool](https://github.com/openshift/origin/releases):
+The [`oc` command-line tool](https://github.com/openshift/origin/releases) can be used to start a build, layering the `ryanj/http-base` repo on top of the latest `stable` release of nodejs:
 
     oc new-app ryanj/centos7-s2i-nodejs:stable~http://github.com/ryanj/http-base
+
+LTS releases are also available:
+
+    oc new-app ryanj/centos7-s2i-nodejs:lts~http://github.com/ryanj/http-base
 
 Installation
 ---------------
@@ -46,13 +53,13 @@ Building your own Builder images
 To build a Node.JS image:
 *  **CentOS based image**
 
-    This image is available on DockerHub. To download it run:
+    This image is [available on DockerHub](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/). To download it run:
 
     ```
     $ docker pull ryanj/centos7-s2i-nodejs
     ```
 
-    To build a Node.JS image from scratch run:
+    To build a new Node.JS builder image from scratch, run:
 
     ```
     $ git clone https://github.com/ryanj/origin-s2i-nodejs.git

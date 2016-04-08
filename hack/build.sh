@@ -3,13 +3,13 @@
 #
 # Name of resulting image will be: 'NAMESPACE/OS-BASE_IMAGE_NAME:NODE_VERSION'.
 #
-# NODE_VERSION - Specifies the image version
+# VERSION - Specifies the image version
 # TEST_MODE - If set, build a candidate image and test it
 # TAG_ON_SUCCESS - If set, tested image will be re-tagged as a non-candidate
 #       image, if the tests pass.
-# VERSIONS - Must be set to a list of possible versions
+# VERSIONS - a list of possible versions, can be provided instead of VERSION
 
-NODE_VERSION=${1-$NODE_VERSION}
+VERSION=${1-$VERSION}
 VERSIONS=${2-$VERSIONS}
 OS=${3-$OS}
 
@@ -17,7 +17,7 @@ DOCKERFILE="Dockerfile"
 NAMESPACE="ryanj/"
 
 # Cleanup the temporary Dockerfile created by docker build with version
-trap "rm -f ${DOCKERFILE_PATH}.version" SIGINT SIGQUIT EXIT
+trap "rm -f ${DOCKERFILE}.${version}" SIGINT SIGQUIT EXIT
 
 # Perform docker build but append the LABEL with GIT commit id at the end
 function docker_build_with_version {
@@ -42,9 +42,9 @@ function squash {
   ${HOME}/.local/bin/docker-scripts squash -f $base ${IMAGE_NAME}:${version}
 }
 
-# Specify a NODE_VERSION variable to build a specific nodejs.org release
+# Specify a VERSION variable to build a specific nodejs.org release
 # or specify a list of VERSIONS
-versions=${NODE_VERSION:-$VERSIONS}
+versions=${VERSION:-$VERSIONS}
 
 for version in ${versions}; do
   IMAGE_NAME="${NAMESPACE}${OS}-${BASE_IMAGE_NAME}"
