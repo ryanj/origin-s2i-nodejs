@@ -12,21 +12,22 @@ If you are interested in using SCL-based nodejs binaries, try [sti-nodejs](https
 
 Usage
 ---------------------
-To build a simple [nodejs-sample-app](https://github.com/openshift/sti-nodejs/tree/master/0.10/test/test-app) application
-using standalone [STI](https://github.com/openshift/source-to-image) and then run the
-resulting image with [Docker](http://docker.io) execute:
+To build a simple [nodejs example app](https://github.com/ryanj/pillar-base) application using standalone [STI](https://github.com/openshift/source-to-image):
 
-*  **For CentOS based image**
-    ```
-    $ s2i build https://github.com/openshift/sti-nodejs.git --context-dir=0.10/test/test-app/ ryanj/centos7-s2i-nodejs nodejs-sample-app
-    $ docker run -p 8080:8080 nodejs-sample-app
-    ```
+```
+$ s2i build https://github.com/ryanj/pillar-base ryanj/centos7-s2i-nodejs:stable pillarjs
+```
 
-**Accessing the application:**
+Run the resulting image with [Docker](http://docker.io):
+
+```
+$ docker run -p 8080:8080 pillarjs
+```
+
+Access the application:
 ```
 $ curl 127.0.0.1:8080
 ```
-
 
 Repository organization
 ------------------------
