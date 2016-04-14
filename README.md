@@ -1,15 +1,15 @@
 Origin S2I NodeJS
 =================
 
-Builder image build scripts w/ nodejs releases from nodejs.org.
+Builder images w/ nodejs releases from nodejs.org.
+
+[![docker hub stats](http://dockeri.co/image/ryanj/centos7-s2i-nodejs)](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/)
 
 [![image layers](https://badge.imagelayers.io/ryanj/centos7-s2i-nodejs:latest.svg)](https://imagelayers.io/?images=ryanj%2Fcentos7-s2i-nodejs:stable,ryanj%2Fcentos7-s2i-nodejs:lts,ryanj%2Fcentos7-s2i-nodejs:0.12,ryanj%2Fcentos7-s2i-nodejs:0.10)
 
-This repository contains the source for building various versions of
-the Node.JS application as a reproducible Docker image using
-[source-to-image](https://github.com/openshift/source-to-image).
+This repository contains sources for building base / builder images for use with [source-to-image](https://github.com/openshift/source-to-image).
 
-If you are interested in using SCL-based nodejs binaries, try [sti-nodejs](https://github.com/openshift/sti-nodejs).
+If you are interested in developing against SCL-based nodejs releases, try [sti-nodejs](https://github.com/openshift/sti-nodejs).
 
 For more information about using these images with OpenShift, please see the
 official [OpenShift Documentation](https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html).
