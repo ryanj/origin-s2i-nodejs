@@ -143,74 +143,40 @@ test_scl_usage() {
   fi
 }
 
-validate_default_value() {
-  local label=$1
+# Sets and Gets the NODE_ENV environment variable from the container.
+get_set_node_env_from_container() {
+  local node_env="$1"
 
-  IFS=':' read -a label_vals <<< $(docker inspect -f "{{index .Config.Labels \"$label\"}}" ${IMAGE_TAG}) 
-  label_var=${label_vals[0]}
-  default_label_val=${label_vals[1]}
-
-  actual_label_val=$(docker run --rm $IMAGE_TAG /bin/bash -c "echo $"$label_var)
-
-  if [ "$actual_label_val" != "$default_label_val" ]; then
-    echo "ERROR default value for $label with environment variable $label_var; Expected $default_label_val, got $actual_label_val"
-    return 1
-  fi
+  echo $(docker run --rm --env NODE_ENV=$node_env $IMAGE_TAG /bin/bash -c 'echo "$NODE_ENV"')
 }
 
 # Gets the NODE_ENV environment variable from the container.
-get_node_env_from_container() {
-  local dev_mode="$1"
-  local node_env="$2"
-
-  IFS=':' read -a label_val <<< $(docker inspect -f '{{index .Config.Labels "com.redhat.dev-mode"}}' $IMAGE_TAG)
-  dev_mode_label_var="${label_val[0]}"
-
-  echo $(docker run --rm --env $dev_mode_label_var=$dev_mode --env NODE_ENV=$node_env $IMAGE_TAG /bin/bash -c 'echo "$NODE_ENV"')
+get_default_node_env_from_container() {
+  echo $(docker run --rm $IMAGE_TAG /bin/bash -c 'echo "$NODE_ENV"')
 }
 
-# Ensures that a docker container run with '--env NODE_ENV=$current_val' produces a NODE_ENV value of $expected when
-# DEV_MODE=dev_mode.
-validate_node_env() {
-  local current_val="$1"
-  local dev_mode_val="$2"
-  local expected="$3"
-
-  actual=$(get_node_env_from_container "$dev_mode_val" "$current_val")
-  if [ "$actual" != "$expected" ]; then
-    echo "ERROR default value for NODE_ENV when development mode is $dev_mode_val; should be $expected but is $actual"
-    return 1
-  fi
-}
-
-test_dev_mode_environment_variables() {
-  echo 'Testing Development Mode Environment Variable Setting...'
+test_node_env_and_environment_variables() {
+  local default_node_env="production"
+  local node_env_prod="production"
+  local node_env_dev="development"
+  echo 'Validating default NODE_ENV, verifying ability to configure using Env Vars...'
  
   result=0
  
-  validate_default_value com.redhat.dev-mode
-  result=$(($result | $?))
- 
-  validate_default_value com.redhat.dev-mode.port
-  result=$(($result | $?))
+  if [ "$default_node_env" != $(get_default_node_env_from_container) ]; then
+    echo "ERROR default NODE_ENV should be '$default_node_env'"
+    result=1
+  fi
 
-  validate_node_env "" false production
-  result=$(($result | $?))
+  if [ "$node_env_prod" != $(get_set_node_env_from_container "$node_env_prod") ]; then
+    echo "ERROR: NODE_ENV was unsuccessfully set to '$node_env_prod' mode"
+    result=1
+  fi
 
-  validate_node_env "" true development
-  result=$(($result | $?))
-
-  validate_node_env production false production
-  result=$(($result | $?))
-
-  validate_node_env production true production
-  result=$(($result | $?))
-
-  validate_node_env development false development
-  result=$(($result | $?))
-
-  validate_node_env development true development
-  result=$(($result | $?))
+  if [ "$node_env_dev" != $(get_set_node_env_from_container "$node_env_dev") ]; then
+    echo "ERROR: NODE_ENV unsuccessfully set to '$node_env_dev' mode"
+    result=1
+  fi
   
   return $result
 }
@@ -241,7 +207,7 @@ check_result $?
 test_connection
 check_result $?
 
-test_dev_mode_environment_variables
+test_node_env_and_environment_variables
 check_result $?
 
 echo "Success!"

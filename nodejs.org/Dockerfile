@@ -13,15 +13,16 @@ EXPOSE 8080
 ENV NODE_VERSION=5.10.1 \
     NPM_CONFIG_LOGLEVEL=info \
     PATH=$HOME/node_modules/.bin/:$PATH \
-    NPM_VERSION=3
+    NPM_VERSION=3 \
+    DEBUG_PORT=5858 \
+    NODE_ENV="production" \
+    DEV_MODE=false
 
 LABEL io.k8s.description="Platform for building and running Node.js applications" \
       io.k8s.display-name="Node.js v$NODE_VERSION" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,nodejs,nodejs$NODE_VERSION" \
-      com.redhat.dev-mode="DEV_MODE:false" \
-      com.redhat.deployments-dir="/opt/app-root/src" \
-      com.redhat.dev-mode.port="DEBUG_PORT:5858"
+      com.redhat.deployments-dir="/opt/app-root/src"
 
 # Download and install a binary from nodejs.org
 # Add the gpg keys listed at https://github.com/nodejs/node

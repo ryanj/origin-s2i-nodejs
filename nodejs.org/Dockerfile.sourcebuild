@@ -13,7 +13,10 @@ EXPOSE 8080
 ENV NODE_VERSION=5.10.1 \
     NPM_CONFIG_LOGLEVEL=info \
     PATH=$HOME/node_modules/.bin/:$PATH \
-    NPM_VERSION=3
+    NPM_VERSION=3 \
+    DEBUG_PORT=5858 \
+    NODE_ENV="production" \
+    DEV_MODE=false
 
 LABEL io.k8s.description="Platform for building and running Node.js applications" \
       io.k8s.display-name="Node.js v$NODE_VERSION" \
