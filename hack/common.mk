@@ -9,11 +9,11 @@ else
 endif
 
 script_env = \
-	SKIP_SQUASH=$(SKIP_SQUASH)                      \
-	VERSIONS="$(VERSIONS)"                          \
-	OS=$(OS)                                        \
-	BASE_IMAGE_NAME=$(BASE_IMAGE_NAME)              \
-	VERSION=$(VERSION)
+	SKIP_SQUASH="$(SKIP_SQUASH)"                      \
+	VERSIONS="$(VERSIONS)"                            \
+	OS="$(OS)"                                        \
+	BASE_IMAGE_NAME="$(BASE_IMAGE_NAME)"              \
+	VERSION="$(VERSION)"
 
 .PHONY: build
 build:

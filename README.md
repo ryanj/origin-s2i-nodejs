@@ -18,7 +18,7 @@ Versions
 
 * `0.10.44` `0.10`
 * `0.12.13` `0.12`
-* `4.4.2` `4.4` `4` `lts`
+* `4.4.3` `4.4` `4` `lts`
 * `5.10.1` `5.10` `5` `stable` `latest`
 
 Usage
@@ -86,7 +86,7 @@ Users can choose between testing a Node.JS test application based on a RHEL or C
 
     ```
     $ cd sti-nodejs
-    $ make test VERSION=5.10.1
+    $ make test VERSIONS="0.10.44 0.12.13 4.4.3 5.10.1"
     ```
 
 Repository organization

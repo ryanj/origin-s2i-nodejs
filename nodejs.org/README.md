@@ -88,37 +88,6 @@ Example: DATABASE_USER=sampleUser
 
 Setting the HTTP_PROXY or HTTPS_PROXY environment variable will set the appropriate npm proxy configuration during assembly.
 
-Development Mode
----------------------
-This image supports development mode. This mode can be switched on and off with the environment variable `DEV_MODE`. `DEV_MODE` can either be set to `true` or `false`.
-Development mode supports two features:
-* Hot Deploy
-* Debugging
-
-The debug port can be speicifed with the environment variable `DEBUG_PORT`. `DEBUG_PORT` is only valid if `DEV_MODE=true`.
-
-A simple example command for running the docker container in production mode is:
-```
-docker run --env DEV_MODE=true my-image-id
-```
-
-To run the container in development mode with a debug port of 5454, run:
-```
-$ docker run --env DEV_MODE=true DEBUG_PORT=5454 my-image-id
-```
-
-To run the container in production mode, run:
-```
-$ docker run --env DEV_MODE=false my-image-id
-```
-
-By default, `DEV_MODE` is set to `false`, and `DEBUG_PORT` is set to `5858`, however the `DEBUG_PORT` is only relevant if `DEV_MODE=true`.
-
-Hot deploy
---------------------
-
-As part of development mode, this image supports hot deploy. If development mode is enabled, any souce code that is changed in the running container will be immediately reflected in the running nodejs application.
-
 ### Using Docker's exec
 
 To change your source code in a running container, use Docker's [exec](http://docker.io) command:
@@ -131,38 +100,3 @@ After you [Docker exec](http://docker.io) into the running container, your curre
 ### Using OpenShift's rsync
 
 If you have deployed the container to OpenShift, you can use [oc rsync](https://docs.openshift.org/latest/dev_guide/copy_files_to_container.html) to copy local files to a remote container running in an OpenShift pod.
-
-#### Warning:
-
-The default behaviour of the sti-nodejs docker image is to run the Node.js application using the command `npm start`. This runs the _start_ script in the _package.json_ file. In developer mode, the application is run using the command `nodemon`. The default behaviour of nodemon is to look for the _main_ attribute in the _package.json_ file, and execute that script. If the _main_ attribute doesn't appear in the _package.json_ file, it executes the _start_ script. So, in order to achieve some sort of uniform functionality between production and development modes, the user should remove the _main_ attribute.
-
-Below is an example _package.json_ file with the _main_ attribute and _start_ script marked appropriately:
-
-```json
-{
-    "name": "node-echo",
-    "version": "0.0.1",
-    "description": "node-echo",
-    "main": "example.js", <--- main attribute
-    "dependencies": {
-    },
-    "devDependencies": {
-        "nodemon": "*"
-    },
-    "engine": {
-        "node": "*",
-        "npm": "*"
-    },
-    "scripts": {
-        "dev": "nodemon --ignore node_modules/ server.js",
-        "start": "node server.js" <-- start script
-    },
-    "keywords": [
-        "Echo"
-    ],
-    "license": "",
-}
-```
-
-#### Note:
-`oc rsync` is only available in versions 3.1+ of OpenShift.

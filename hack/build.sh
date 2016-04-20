@@ -9,9 +9,8 @@
 #       image, if the tests pass.
 # VERSIONS - a list of possible versions, can be provided instead of VERSION
 
-VERSION=${1-$VERSION}
-VERSIONS=${2-$VERSIONS}
-OS=${3-$OS}
+OS=${1-$OS}
+VERSION=${2-$VERSION}
 
 DOCKERFILE="Dockerfile"
 NAMESPACE="ryanj/"

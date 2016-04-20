@@ -79,7 +79,7 @@
             },
             "from": {
               "kind": "ImageStreamTag",
-              "name": "4.4.2"
+              "name": "4.4.3"
             }
           },
           {
@@ -93,7 +93,7 @@
             },
             "from": {
               "kind": "ImageStreamTag",
-              "name": "4.4.2"
+              "name": "4.4.3"
             }
           },
           {
@@ -107,11 +107,11 @@
             },
             "from": {
               "kind": "ImageStreamTag",
-              "name": "4.4.2"
+              "name": "4.4.3"
             }
           },
           {
-            "name": "4.4.2",
+            "name": "4.4.3",
             "annotations": {
               "description": "Build and run NodeJS applications",
               "iconClass": "icon-nodejs",
@@ -121,7 +121,7 @@
             },
             "from": {
               "kind": "DockerImage",
-              "name": "ryanj/centos7-s2i-nodejs:4.4.2"
+              "name": "ryanj/centos7-s2i-nodejs:4.4.3"
             }
           },
           {
