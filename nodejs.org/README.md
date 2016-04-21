@@ -1,4 +1,4 @@
-NodeJS Docker image
+NodeJS Builder image
 ===================
 
 This repository contains the source for building various versions of

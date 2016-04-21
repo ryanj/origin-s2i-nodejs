@@ -57,6 +57,10 @@ To install these nodejs S2I builders into your current project, making them avai
 Administrators can make these builders available globally (visible in all projects) by adding them to the `openshift` namespace:
 
     oc create -n openshift -f https://raw.githubusercontent.com/ryanj/origin-s2i-nodejs/master/image-streams.json
+    
+If you've (automatically) imported this image using the [`oc new-app` example command](#usage), then you may need to clear the auto-imported image stream reference and re-install it, helping ensure that each of the NodeJS release tags are available and displayed correctly in the web UI:
+
+    oc delete is/centos7-s2i-nodejs && oc create -f https://raw.githubusercontent.com/ryanj/origin-s2i-nodejs/master/image-streams.json
 
 Building your own Builder images
 --------------------------------
