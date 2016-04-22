@@ -14,8 +14,9 @@ ENV NODE_VERSION=5.10.1 \
     NPM_CONFIG_LOGLEVEL=info \
     PATH=$HOME/node_modules/.bin/:$PATH \
     NPM_VERSION=3 \
+    NPM_RUN=start \
     DEBUG_PORT=5858 \
-    NODE_ENV="production" \
+    NODE_ENV=production \
     DEV_MODE=false
 
 LABEL io.k8s.description="Platform for building and running Node.js applications" \
@@ -39,12 +40,14 @@ RUN set -ex && \
   ; do \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
   done && \
+  yum install -y bzip2 && \
   curl -o node-v${NODE_VERSION}-linux-x64.tar.gz -sSL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
   curl -o SHASUMS256.txt.asc -sSL https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt.asc && \
   gpg --batch -d SHASUMS256.txt.asc | grep " node-v${NODE_VERSION}-linux-x64.tar.gz\$" | sha256sum -c - && \
   tar -zxf node-v${NODE_VERSION}-linux-x64.tar.gz -C /usr/local --strip-components=1 && \
   npm install -g npm@${NPM_VERSION} && \
   find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf; \
+  yum clean all -y && \
   rm -rf ~/node-v${NODE_VERSION}-linux-x64.tar.gz ~/SHASUMS256.txt.asc /tmp/node-v${NODE_VERSION} ~/.npm ~/.node-gyp ~/.gnupg \
     /usr/share/man /tmp/* /usr/local/lib/node_modules/npm/man /usr/local/lib/node_modules/npm/doc /usr/local/lib/node_modules/npm/html
 
