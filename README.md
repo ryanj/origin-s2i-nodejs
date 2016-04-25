@@ -5,7 +5,7 @@ Builder images w/ nodejs releases from nodejs.org.
 
 [![docker hub stats](http://dockeri.co/image/ryanj/centos7-s2i-nodejs)](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/)
 
-[![image layers](https://badge.imagelayers.io/ryanj/centos7-s2i-nodejs:latest.svg)](https://imagelayers.io/?images=ryanj%2Fcentos7-s2i-nodejs:stable,ryanj%2Fcentos7-s2i-nodejs:lts,ryanj%2Fcentos7-s2i-nodejs:0.12,ryanj%2Fcentos7-s2i-nodejs:0.10)
+[![image layers](https://imagelayers.io/badge/ryanj/centos7-s2i-nodejs.svg)](https://imagelayers.io/?images=ryanj%2Fcentos7-s2i-nodejs:stable,ryanj%2Fcentos7-s2i-nodejs:lts,ryanj%2Fcentos7-s2i-nodejs:0.12,ryanj%2Fcentos7-s2i-nodejs:0.10)
 
 This repository contains sources for building base / builder images for use with [source-to-image](https://github.com/openshift/source-to-image).
 
