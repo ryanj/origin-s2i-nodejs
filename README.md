@@ -1,15 +1,13 @@
 Origin S2I NodeJS
 =================
 
-Builder images w/ nodejs releases from nodejs.org.
+This repository contains sources for an [s2i](https://github.com/openshift/source-to-image) builder image, based on CentOS7 and nodejs releases from nodejs.org.
+
+If you are interested in developing against SCL-based nodejs releases, try [sti-nodejs](https://github.com/openshift/sti-nodejs).
 
 [![docker hub stats](http://dockeri.co/image/ryanj/centos7-s2i-nodejs)](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/)
 
-[![image layers](https://imagelayers.io/badge/ryanj/centos7-s2i-nodejs.svg)](https://imagelayers.io/?images=ryanj%2Fcentos7-s2i-nodejs:stable,ryanj%2Fcentos7-s2i-nodejs:lts,ryanj%2Fcentos7-s2i-nodejs:0.12,ryanj%2Fcentos7-s2i-nodejs:0.10)
-
-This repository contains sources for building base / builder images for use with [source-to-image](https://github.com/openshift/source-to-image).
-
-If you are interested in developing against SCL-based nodejs releases, try [sti-nodejs](https://github.com/openshift/sti-nodejs).
+[![image layers](https://imagelayers.io/badge/ryanj/centos7-s2i-nodejs.svg)](https://imagelayers.io/?images=ryanj%2Fcentos7-s2i-nodejs:current,ryanj%2Fcentos7-s2i-nodejs:lts,ryanj%2Fcentos7-s2i-nodejs:0.12,ryanj%2Fcentos7-s2i-nodejs:0.10)
 
 For more information about using these images with OpenShift, please see the
 official [OpenShift Documentation](https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html).
@@ -18,34 +16,39 @@ Versions
 ---------------
 [Node.JS versions currently provided are](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/tags/):
 
-* `0.10.44` `0.10`
-* `0.12.13` `0.12`
-* `4.4.3` `4.4` `4` `lts`
-* `5.10.1` `5.10` `5` `stable` `latest`
+* `6.0.0` `current`
+* `5.11.0`
+* `4.4.3` `lts`
+* `0.12.13`
+* `0.10.44`
 
 Usage
 ---------------------------------
 
 OpenShift allows you to quickly start a build using the web console, or the CLI.
 
-The [`oc` command-line tool](https://github.com/openshift/origin/releases) can be used to start a build, layering the `ryanj/http-base` repo on top of the latest `stable` release of nodejs:
+The [`oc` command-line tool](https://github.com/openshift/origin/releases) can be used to start a build, layering your desired nodejs `REPO_URL` sources into a centos7 image with your selected `RELEASE` of nodejs via the following command format:
 
-    oc new-app ryanj/centos7-s2i-nodejs:stable~http://github.com/ryanj/pillar-base
+    oc new-app ryanj/centos7-s2i-nodejs:RELEASE~REPO_URL
 
-LTS releases are also available:
+For example, you can run a build (including `npm install` steps), using my [`http-base`](http://github.com/ryanj/http-base) example repo, and the `current` relase of nodejs with:
+
+    oc new-app ryanj/centos7-s2i-nodejs:current~http://github.com/ryanj/http-base
+
+Or, to run the latest `lts` release with my [`pillar-base`](http://github.com/ryanj/pillar-base) example:
 
     oc new-app ryanj/centos7-s2i-nodejs:lts~http://github.com/ryanj/pillar-base
+
+You can try using any of the available tagged nodejs releases, and your own repo sources - as long as your application source will init correctly with `npm start`, and listen on port 8080.
 
 Builds
 ------
 
-OpenShift uses [source to image](https://github.com/openshift/source-to-image) to build application images by combining application sources with operationally maintained base images.
+The [Source2Image cli tools](https://github.com/openshift/source-to-image/releases) are available as a standalone project, allowing you to [run builds outside of OpenShift](https://github.com/ryanj/origin-s2i-nodejs/blob/master/nodejs.org/README.md#usage).
 
 This example will produce a new docker image named `pillarjs`:
 
-    s2i build https://github.com/ryanj/pillar-base ryanj/centos7-s2i-nodejs:stable pillarjs
-
-The [Source2Image cli tools](https://github.com/openshift/source-to-image/releases) are available as a standalone project, allowing you to [run builds outside of OpenShift](https://github.com/ryanj/origin-s2i-nodejs/blob/master/nodejs.org/README.md#usage).
+    s2i build https://github.com/ryanj/pillar-base ryanj/centos7-s2i-nodejs:current pillarjs
 
 Installation
 ---------------
@@ -78,7 +81,7 @@ To build a Node.JS image:
     ```
     $ git clone https://github.com/ryanj/origin-s2i-nodejs.git
     $ cd origin-s2i-nodejs
-    $ make build VERSION=5.10.1
+    $ make build VERSION=6.0.0
     ```
 
 Test
@@ -92,7 +95,7 @@ Users can choose between testing a Node.JS test application based on a RHEL or C
 
     ```
     $ cd sti-nodejs
-    $ make test VERSIONS="0.10.44 0.12.13 4.4.3 5.10.1"
+    $ make test VERSIONS="0.10.44 0.12.13 4.4.3 5.11.0 6.0.0"
     ```
 
 Repository organization

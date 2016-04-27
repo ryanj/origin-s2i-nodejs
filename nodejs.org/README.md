@@ -15,7 +15,7 @@ Usage
 To build a simple [nodejs example app](https://github.com/ryanj/pillar-base) application using standalone [STI](https://github.com/openshift/source-to-image):
 
 ```
-$ s2i build https://github.com/ryanj/pillar-base ryanj/centos7-s2i-nodejs:stable pillarjs
+$ s2i build https://github.com/ryanj/pillar-base ryanj/centos7-s2i-nodejs:current pillarjs
 ```
 
 Run the resulting image with [Docker](http://docker.io):
