@@ -4,7 +4,7 @@ set -e
 
 # Runs the nodejs application server.
 run_node() {
-  exec npm run $NPM_RUN
+  exec npm run -d $NPM_RUN
 } 
 
 # If the official dockerhub node image is used, skip the SCL setup below
