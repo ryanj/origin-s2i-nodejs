@@ -77,16 +77,25 @@ Repository organization
 
             This script runs the [S2I](https://github.com/openshift/source-to-image) test framework.
 
-
 Environment variables
 ---------------------
 
-To set environment variables, you can place them as a key value pair into a `.sti/environment`
-file inside your source code repository.
+Application developers can use the following environment variables to configure the runtime behavior of this image:
+
+NAME        | Description
+------------|-------------
+NPM_RUN     | Select an alternate / custom runtime mode, defined in your `package.json` file's [`scripts`](https://docs.npmjs.com/misc/scripts) section (default: npm run "start")
+NODE_ENV    | NodeJS runtime mode (default: "production")
+HTTP_PROXY  | use an npm proxy during assembly
+HTTPS_PROXY | use an npm proxy during assembly
+
+One way to define a set of environment variables is to include them as key value pairs in your repo's `.s2i/environment` file.
 
 Example: DATABASE_USER=sampleUser
 
-Setting the HTTP_PROXY or HTTPS_PROXY environment variable will set the appropriate npm proxy configuration during assembly.
+#### NOTE: Define your own "`DEV_MODE`":
+
+The following `package.json` example includes a `scripts.dev` entry.  You can define your own custom [`NPM_RUN`](https://docs.npmjs.com/cli/run-script) scripts in your application's `package.json` file.
 
 ### Using Docker's exec
 
