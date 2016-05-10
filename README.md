@@ -16,11 +16,11 @@ Versions
 ---------------
 [Node.JS versions currently provided are](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/tags/):
 
-* `6.0.0` `current`
-* `5.11.0`
-* `4.4.3` `lts`
-* `0.12.13`
-* `0.10.44`
+* `6.1.0` `current`
+* `5.11.1`
+* `4.4.4` `lts`
+* `0.12.14`
+* `0.10.45`
 
 Usage
 ---------------------------------
@@ -81,7 +81,7 @@ To build a Node.JS image:
     ```
     $ git clone https://github.com/ryanj/origin-s2i-nodejs.git
     $ cd origin-s2i-nodejs
-    $ make build VERSION=6.0.0
+    $ make build VERSION=6.1.0
     ```
 
 Test
@@ -95,7 +95,7 @@ Users can choose between testing a Node.JS test application based on a RHEL or C
 
     ```
     $ cd sti-nodejs
-    $ make test VERSIONS="0.10.44 0.12.13 4.4.3 5.11.0 6.0.0"
+    $ make test VERSIONS="0.10.45 0.12.14 4.4.4 5.11.1 6.1.0"
     ```
 
 Repository organization

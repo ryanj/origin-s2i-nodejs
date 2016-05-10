@@ -10,7 +10,7 @@ EXPOSE 8080
 # Release version configuration:
 # Add $HOME/node_modules/.bin to the $PATH, allowing user to make npm scripts
 # available on the CLI without using npm's --global installation mode
-ENV NODE_VERSION=6.0.0 \
+ENV NODE_VERSION=6.1.0 \
     NPM_CONFIG_LOGLEVEL=info \
     PATH=$HOME/node_modules/.bin/:$PATH \
     NPM_VERSION=3 \
