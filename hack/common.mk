@@ -12,7 +12,9 @@ script_env = \
 	SKIP_SQUASH="$(SKIP_SQUASH)"                      \
 	VERSIONS="$(VERSIONS)"                            \
 	OS="$(OS)"                                        \
+	NAMESPACE="$(NAMESPACE)"                          \
 	BASE_IMAGE_NAME="$(BASE_IMAGE_NAME)"              \
+	ONBUILD_IMAGE_NAME="$(ONBUILD_IMAGE_NAME)"        \
 	VERSION="$(VERSION)"
 
 .PHONY: build
