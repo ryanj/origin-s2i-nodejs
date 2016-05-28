@@ -67,22 +67,21 @@ If you've (automatically) imported this image using the [`oc new-app` example co
 
 Building your own Builder images
 --------------------------------
-To build a Node.JS image:
-*  **CentOS based image**
+Clone a copy of this repo to fetch the build sources:
 
-    This image is [available on DockerHub](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/). To download it run:
-
-    ```
-    $ docker pull ryanj/centos7-s2i-nodejs
-    ```
-
-    To build your own Node.JS builder images from scratch, run:
-
-    ```
     $ git clone https://github.com/ryanj/origin-s2i-nodejs.git
     $ cd origin-s2i-nodejs
-    $ make build VERSION=6.2.0
-    ```
+
+To build your own S2I Node.JS builder images from scratch, run:
+
+    $ docker pull openshift/base-centos7
+    $ make build
+
+You can also build a specific release, or try building the alternate `ONBUILD` version of this base:
+
+    $ ONBUILD=true make VERSION=6.2.0
+
+The `ONBUILD` base images are available at https://hub.docker.com/r/ryanj/centos7-nodejs
 
 Test
 ---------------------
