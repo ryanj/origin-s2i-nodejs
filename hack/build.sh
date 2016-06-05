@@ -25,7 +25,7 @@ trap "rm -f ${DOCKERFILE}.${version}" SIGINT SIGQUIT EXIT
 function docker_build_with_version {
   cp ${DOCKERFILE} "${DOCKERFILE}.${version}"
   git_version=$(git rev-parse HEAD)
-  sed -i "${DOCKERFILE}.${version}" -e "s/NODE_VERSION=6.2.0/NODE_VERSION=${version}/"
+  sed -i "${DOCKERFILE}.${version}" -e "s/NODE_VERSION=6.2.1/NODE_VERSION=${version}/"
   echo "LABEL io.origin.builder-version=\"${git_version}\"" >> "${DOCKERFILE}.${version}"
   docker build -t ${IMAGE_NAME}:${version} -f "${DOCKERFILE}.${version}" .
   if [[ "${SKIP_SQUASH}" != "1" ]]; then

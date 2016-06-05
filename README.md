@@ -16,7 +16,7 @@ Versions
 ---------------
 [Node.JS versions currently provided are](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/tags/):
 
-* `6.2.0` `current`
+* `6.2.1` `current`
 * `5.11.1`
 * `4.4.5` `lts`
 * `0.12.14`
@@ -85,7 +85,7 @@ To build your own S2I Node.JS builder images from scratch, run:
 
 You can also build a specific release, or try building the alternate `ONBUILD` version of this base:
 
-    $ ONBUILD=true make VERSION=6.2.0
+    $ ONBUILD=true make VERSION=6.2.1
 
 The `ONBUILD` base images are available at https://hub.docker.com/r/ryanj/centos7-nodejs
 
@@ -100,7 +100,7 @@ Users can choose between testing a Node.JS test application based on a RHEL or C
 
     ```
     $ cd sti-nodejs
-    $ make test VERSIONS="0.10.45 0.12.14 4.4.5 5.11.1 6.2.0"
+    $ make test VERSIONS="0.10.45 0.12.14 4.4.5 5.11.1 6.2.1"
     ```
 
 Repository organization
