@@ -1,0 +1,36 @@
+{
+  "name": "openshift-aws-deployer",
+  "homepage": "https://github.com/ryanj/demo-ansible",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanj/demo-ansible.git"
+  },
+  "version": "0.0.1",
+  "description": "Docker & ansible deployment script for OpenShift on AWS",
+  "dependencies": {
+    "request": "^2.72.0",
+    "semver": "^5.1.0"
+  },
+  "devDependencies": {
+    "tap": "^5.7.0"
+  },
+  "keywords": [
+    "openshift",
+    "aws",
+    "docker",
+    "ansible"
+  ],
+  "main": "latest.js",
+  "author": "ryanj",
+  "scripts": {
+    "start": "make",
+    "rebuild": "./rebuild.sh",
+    "build": "make",
+    "test": "make test",
+    "clean": "docker rmi -f $(docker images |tr -s ' ' | grep -e 'centos7-s2i-nodejs\\|centos7-s2i-nodejs-candidate\\|centos7-nodejs' | cut -d' ' -s -f3)"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2015-Middleware-Keynote/demo-ansible/issues"
+  }
+}

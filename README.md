@@ -100,7 +100,7 @@ Users can choose between testing a Node.JS test application based on a RHEL or C
 
     ```
     $ cd sti-nodejs
-    $ make test VERSIONS="0.10.45 0.12.14 4.4.5 5.11.1 6.2.1"
+    $ make test
     ```
 
 Repository organization

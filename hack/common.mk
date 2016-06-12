@@ -21,6 +21,14 @@ script_env = \
 build:
 	$(script_env) $(build)
 
+.PHONY: rebuild
+rebuild:
+	npm run rebuild
+
 .PHONY: test
 test:
 	$(script_env) TAG_ON_SUCCESS=$(TAG_ON_SUCCESS) TEST_MODE=true $(build)
+
+.PHONY: clean
+clean:
+	npm run clean
