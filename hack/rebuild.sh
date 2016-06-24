@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/bash -e
 
 LAST_RELEASE="$(grep 'NODE_VERSION=' nodejs.org/Dockerfile | sed -e "s/ *NODE_VERSION=\([^ ]*\) \\\/\1/")"
-LAST_RELEASES="$(cat Makefile | grep VERSIONS | sed -e 's/VERSIONS = \(.*\)/\1/')"
-LATEST_RELEASE="$(./latest.js | cut -f5 -d' ')"
-LATEST_RELEASES="$(node ./latest.js)"
+LAST_RELEASES="$VERSIONS"
+LATEST_RELEASE="$(./hack/latest.js | cut -f5 -d' ')"
+LATEST_RELEASES="$(node ./hack/latest.js)"
 NUMS="$(seq 1 `echo $LAST_RELEASES | wc -w`)"
 #Files with hard-coded version strings:
 LAST_UPDATES_NEEDED="centos7-nodejs-onbuild.json \
@@ -17,7 +17,7 @@ LATEST_UPDATES_NEEDED="hack/build.sh \
 
 if [ "${LAST_RELEASES}" != "${LATEST_RELEASES}" ] ; then
   echo "New NodeJS releases available!: ${LATEST_RELEASES}"
-  sed -i Makefile -e "s/VERSIONS.*/VERSIONS = ${LATEST_RELEASES}/"
+  sed -i Makefile -e "s/VERSIONS.*/VERSIONS = $LATEST_RELEASES/"
 
   for release in $NUMS ; do
     last="$( echo ${LAST_RELEASES} | cut -d' ' -f$release )"

@@ -1,12 +1,12 @@
 {
-  "name": "openshift-aws-deployer",
-  "homepage": "https://github.com/ryanj/demo-ansible",
+  "name": "centos7-nodejs",
+  "homepage": "https://github.com/ryanj/origin-s2i-nodejs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryanj/demo-ansible.git"
+    "url": "https://github.com/ryanj/origin-s2i-nodejs.git"
   },
-  "version": "0.0.1",
-  "description": "Docker & ansible deployment script for OpenShift on AWS",
+  "version": "0.0.2",
+  "description": "NodeJS images for OpenShift / Kubernetes, based on CentOS",
   "dependencies": {
     "request": "^2.72.0",
     "semver": "^5.1.0"
@@ -20,11 +20,12 @@
     "docker",
     "ansible"
   ],
-  "main": "latest.js",
   "author": "ryanj",
   "scripts": {
-    "start": "make",
-    "rebuild": "./rebuild.sh",
+    "start": "make all",
+    "rebuild": "hack/rebuild.sh",
+    "tag": "hack/tag.sh",
+    "pub": "hack/publish.sh",
     "build": "make",
     "test": "make test",
     "clean": "docker rmi -f $(docker images |tr -s ' ' | grep -e 'centos7-s2i-nodejs\\|centos7-s2i-nodejs-candidate\\|centos7-nodejs' | cut -d' ' -s -f3)"

@@ -21,9 +21,25 @@ script_env = \
 build:
 	$(script_env) $(build)
 
+.PHONY: all
+all:
+	make rebuild && make test && make build && make onbuild && make tags && make publish
+
+.PHONY: onbuild
+onbuild:
+	$(script_env) ONBUILD=true $(build)
+
+.PHONY: tags
+tags:
+	$(script_env) npm run tag
+
+.PHONY: publish
+publish:
+	$(script_env) npm run pub
+
 .PHONY: rebuild
 rebuild:
-	npm run rebuild
+	$(script_env) npm run rebuild
 
 .PHONY: test
 test:
