@@ -35,6 +35,9 @@ if [ "${LAST_RELEASES}" != "${LATEST_RELEASES}" ] ; then
       sed -i $file -e "s/${LAST_RELEASE}/${LATEST_RELEASE}/g"
     done
   fi
+
+  docker pull openshift/base-centos7
+
 else
   echo "No new NodeJS releases found"
 fi
