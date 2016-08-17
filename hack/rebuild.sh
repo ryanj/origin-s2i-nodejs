@@ -6,8 +6,7 @@ LATEST_RELEASE="$(./hack/latest.js | cut -f5 -d' ')"
 LATEST_RELEASES="$(node ./hack/latest.js)"
 NUMS="$(seq 1 `echo $LAST_RELEASES | wc -w`)"
 #Files with hard-coded version strings:
-LAST_UPDATES_NEEDED="centos7-nodejs-onbuild.json \
-  centos7-s2i-nodejs.json \
+LAST_UPDATES_NEEDED="centos7-s2i-nodejs.json \
   image-streams-candidate.json \
   image-streams.json \
   README.md"
