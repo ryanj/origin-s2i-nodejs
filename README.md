@@ -7,7 +7,7 @@ If you are interested in developing against SCL-based nodejs releases, try [sti-
 
 [![docker hub stats](http://dockeri.co/image/ryanj/centos7-s2i-nodejs)](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/)
 
-[![image layers](https://imagelayers.io/badge/ryanj/centos7-s2i-nodejs.svg)](https://imagelayers.io/?images=ryanj%2Fcentos7-s2i-nodejs:current,ryanj%2Fcentos7-s2i-nodejs:lts,ryanj%2Fcentos7-s2i-nodejs:0.12,ryanj%2Fcentos7-s2i-nodejs:0.10)
+[![](https://images.microbadger.com/badges/image/ryanj/centos7-s2i-nodejs.svg)](https://microbadger.com/images/ryanj/centos7-s2i-nodejs "Get your own image badge on microbadger.com")
 
 For more information about using these images with OpenShift, please see the
 official [OpenShift Documentation](https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html).
