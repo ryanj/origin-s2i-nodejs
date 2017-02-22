@@ -31,7 +31,7 @@ The [`oc` command-line tool](https://github.com/openshift/origin/releases) can b
 
     oc new-app ryanj/centos7-s2i-nodejs:RELEASE~REPO_URL
 
-For example, you can run a build (including `npm install` steps), using my [`http-base`](http://github.com/ryanj/http-base) example repo, and the `current` relase of nodejs with:
+For example, you can run a build (including `npm install` steps), using my [`http-base`](http://github.com/ryanj/http-base) example repo, and the `current` release of nodejs with:
 
     oc new-app ryanj/centos7-s2i-nodejs:current~http://github.com/ryanj/http-base
 
