@@ -17,7 +17,7 @@ LATEST_UPDATES_NEEDED="hack/build.sh \
 
 if [ "${LAST_RELEASES}" != "${LATEST_RELEASES}" ] ; then
   echo "New NodeJS releases available!: ${LATEST_RELEASES}"
-  sed -e "s/VERSIONS.*/VERSIONS = $LATEST_RELEASES/" -i '' Makefile
+  sed -e "s/VERSIONS.*/VERSIONS = $LATEST_RELEASES/" -i Makefile
 
   for release in $NUMS ; do
     last="$( echo ${LAST_RELEASES} | cut -d' ' -f$release )"
@@ -25,14 +25,14 @@ if [ "${LAST_RELEASES}" != "${LATEST_RELEASES}" ] ; then
     if [ $last != $latest ] ; then
       echo "Updating v$last to v$latest"
       for file in $LAST_UPDATES_NEEDED ; do
-        sed -e "s/${last}/${latest}/g" -i '' $file
+        sed -e "s/${last}/${latest}/g" -i $file
       done
     fi
   done
 
   if [ "${LAST_RELEASE}" != "${LATEST_RELEASE}" ] ; then
     for file in $LATEST_UPDATES_NEEDED ; do
-      sed -e "s/${LAST_RELEASE}/${LATEST_RELEASE}/g" -i '' $file
+      sed -e "s/${LAST_RELEASE}/${LATEST_RELEASE}/g" -i $file
     done
   fi
 

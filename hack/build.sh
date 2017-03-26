@@ -25,7 +25,7 @@ trap "rm -f ${DOCKERFILE}.${version}" SIGINT SIGQUIT EXIT
 function docker_build_with_version {
   cp ${DOCKERFILE} "${DOCKERFILE}.${version}"
   git_version=$(git rev-parse HEAD)
-  sed -e "s/NODE_VERSION *= *.*/NODE_VERSION=${version} \\\/" -i '' "${DOCKERFILE}.${version}"
+  sed -e "s/NODE_VERSION *= *.*/NODE_VERSION=${version} \\\/" -i "${DOCKERFILE}.${version}"
   echo "LABEL io.origin.builder-version=\"${git_version}\"" >> "${DOCKERFILE}.${version}"
   docker build -t ${IMAGE_NAME}:${version} -f "${DOCKERFILE}.${version}" .
   if [[ "${SKIP_SQUASH}" != "1" ]]; then
@@ -39,8 +39,7 @@ function docker_build_with_version {
 function squash {
   # FIXME: We have to use the exact versions here to avoid Docker client
   #        compatibility issues
-  #easy_install -q --user docker_py==1.7.2 docker-squash==1.0.1
-  easy_install -q docker_py==1.7.2 docker-squash==1.0.1
+  easy_install -q --user docker_py==1.7.2 docker-squash==1.0.1
   base=$(awk '/^FROM/{print $2}' $1)
   docker-squash -f $base ${IMAGE_NAME}:${version}
 }
