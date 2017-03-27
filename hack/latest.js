@@ -6,7 +6,8 @@ var request = require('request'),
       '0.12': undefined,
       '4': undefined,
       '5': undefined,
-      '6': undefined};
+      '6': undefined,
+      '7': undefined};
     
 function parse_releases(json_releases){
   var releases = JSON.parse(json_releases);

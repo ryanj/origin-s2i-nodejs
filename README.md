@@ -16,11 +16,12 @@ Versions
 ---------------
 [Node.JS versions currently provided are](https://hub.docker.com/r/ryanj/centos7-s2i-nodejs/tags/):
 
-* `6.3.1` `current`
+* `7.7.4` `current`
+* `6.10.1` `lts`
 * `5.12.0`
-* `4.4.7` `lts`
-* `0.12.15`
-* `0.10.46`
+* `4.8.1`
+* `0.12.18`
+* `0.10.48`
 
 Usage
 ---------------------------------
@@ -90,7 +91,7 @@ To build your own S2I Node.JS builder images from scratch, run:
 
 You can also build a specific release, or try building the alternate `ONBUILD` version of this base:
 
-    $ ONBUILD=true make VERSION=6.3.1
+    $ ONBUILD=true make VERSION=7.7.4
 
 The `ONBUILD` base images are available at https://hub.docker.com/r/ryanj/centos7-nodejs
 
