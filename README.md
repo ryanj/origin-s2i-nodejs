@@ -1,6 +1,8 @@
 Origin S2I NodeJS
 =================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ryanj/origin-s2i-nodejs.svg)](https://greenkeeper.io/)
+
 This repository contains sources for an [s2i](https://github.com/openshift/source-to-image) builder image, based on CentOS7 and nodejs releases from nodejs.org.
 
 If you are interested in developing against SCL-based nodejs releases, try [sti-nodejs](https://github.com/openshift/sti-nodejs).
