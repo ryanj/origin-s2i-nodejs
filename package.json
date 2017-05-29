@@ -12,7 +12,7 @@
     "semver": "^5.1.0"
   },
   "devDependencies": {
-    "tap": "^5.7.0"
+    "tap": "^10.3.2"
   },
   "keywords": [
     "openshift",
